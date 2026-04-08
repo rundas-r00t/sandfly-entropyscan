@@ -27,7 +27,7 @@ way to find programs that could be malicious just by having these two attributes
 
 # How Do I Use This?
 
-`chmod +x sandfly-entropscan rundas-prompter.sh` in addition to the build instructions below. then `sudo ./rundas-prompter.sh` to get easy prompts for directories to scan, level of entropy, output directory, and output file. the `rundas-prompter.sh` also filters out known high-entropy files that are not encrypted (PNG, JPG,Zip archives, etc) feel free to comment that part of the script out if you don't want any filters. or, you can add file types to the pip list if you need additional files filtered out.
+`chmod +x sandfly-entropscan rundas-prompter.sh` in addition to the build instructions below. then `sudo ./rundas-prompter.sh` to get easy prompts for directories to scan, level of entropy, output directory, and output file. the `rundas-prompter.sh` also filters out known high-entropy files that are not encrypted (PNG, JPG,Zip archives, etc) feel free to comment that part of the script out if you don't want any filters. or, you can add file types to the piped list if you need additional files filtered out.
 
 Usage of `sandfly-entropyscan`:
 
