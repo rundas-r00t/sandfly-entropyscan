@@ -27,6 +27,8 @@ way to find programs that could be malicious just by having these two attributes
 
 # How Do I Use This?
 
+`chmod +x sandfly-entropscan rundas-prompter.sh` in addition to the build instructions below. then `sudo ./rundas-prompter.sh` to get easy prompts for directories to scan, level of entropy, output directory, and output file. 
+
 Usage of `sandfly-entropyscan`:
 
 `  -csv`
