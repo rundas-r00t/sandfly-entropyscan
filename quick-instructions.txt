@@ -1,0 +1,42 @@
+To use sandfly-entropyscan, you just point it at a file (or pipe data into it) and it reports high-entropy regions — useful for spotting encrypted or compressed blocks. 🔐📊
+
+Basic usage
+sandfly-entropyscan filename
+
+Example:
+
+sandfly-entropyscan resultsPollPlaceCollection2026-04-07T10_42_18.xml.eeff
+
+This prints entropy scores per block and highlights suspicious regions.
+
+Scan with smaller blocks (more granular)
+sandfly-entropyscan -b 16 filename
+-b 16 → analyze in 16-byte chunks (good for AES block detection)
+Pipe from xxd (if you're already hex dumping)
+xxd -r -p tmp.hex | sandfly-entropyscan
+Show only high entropy areas
+sandfly-entropyscan filename | grep -E "7\.[5-9]|8\."
+Values near 8.0 → likely encrypted/random data
+Quick interpretation
+~8.0 entropy → encrypted or strong compression
+~6–7 → structured/binary
+<5 → text / predictable data
+Your case (one-liner)
+sandfly-entropyscan resultsPollPlaceCollection2026-04-07T10_42_18.xml.eeff | less
+
+Then scroll and look for:
+
+sudden jumps to ~8.0
+repeating high-entropy blocks (possible cipher mode clues)
+
+Since you’re trying to detect encryption method / IV behavior, combine with block repetition:
+
+xxd -p resultsPollPlaceCollection2026-04-07T10_42_18.xml.eeff | fold -w32 | sort | uniq -c | sort -nr | head
+Repeats + high entropy → likely ECB
+High entropy but no repeats → CBC/CTR/GCM
+
+This combo is great for CTF crypto triage.
+
+Scan every file in a directory
+./sandfly-entropyscan -dir /path/to/folder/. -entropy 5
+
